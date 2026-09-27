@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Customers</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><section class="form-card" style="max-width:900px"><h2>👥 Bank Customers</h2><p class="sub">Registered customers</p><button class="btn" onclick="loadCustomers()">🔄 Load Customers</button><div id="customers" class="table-wrap"></div><a class="back" href="admin.html">← Admin Dashboard</a></section></main>
+<script>
+if(sessionStorage.getItem('loggedIn')!=='admin')location.href='login.html';
+async function loadCustomers(){try{const r=await fetch('http://localhost:8080/api/customers');const t=await r.text();if(!r.ok){customers.innerHTML='<p>'+t+'</p>';return}if(t==='NO_CUSTOMERS'){customers.innerHTML='<p>No customers found.</p>';return}let h='<table><tr><th>ID</th><th>Name</th><th>Phone</th><th>Email</th></tr>';t.trim().split('\n').forEach(x=>{let p=x.split('|');h+='<tr><td>'+p[0]+'</td><td>'+p[1]+'</td><td>'+p[2]+'</td><td>'+p[3]+'</td></tr>'});customers.innerHTML=h+'</table>'}catch(e){customers.innerHTML='<p>Cannot connect to Java server!</p>'}}
+</script></body></html>

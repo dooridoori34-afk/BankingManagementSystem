@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin Dashboard</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><div class="topline"><div><h2>🛡️ Admin Dashboard</h2><p style="color:var(--muted)">Bank management</p></div><button class="btn logout" onclick="logout()">Logout</button></div>
+<div class="grid"><div class="card"><div style="font-size:28px">👥</div><h3>Customers</h3><p>View registered bank customers.</p><a href="customers.html">View Customers</a></div></div></main>
+<script>if(sessionStorage.getItem('loggedIn')!=='admin')location.href='login.html';function logout(){sessionStorage.clear();location.href='login.html'}</script></body></html>

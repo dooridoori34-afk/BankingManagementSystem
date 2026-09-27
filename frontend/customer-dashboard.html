@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dashboard</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><div class="topline"><div><h2 id="welcome">Welcome</h2><p style="color:var(--muted)">Your personal banking dashboard</p></div><button class="btn logout" onclick="logout()">Logout</button></div>
+<div class="grid">
+<div class="card"><div style="font-size:27px">👤</div><h3>My Profile</h3><p>View your personal details and bank accounts.</p><a href="profile.html">View Profile</a></div>
+<div class="card"><div style="font-size:27px">🏦</div><h3>Open Account</h3><p>Create a new savings or current account.</p><a href="account.html">Create Account</a></div>
+<div class="card"><div style="font-size:27px">💳</div><h3>Balance</h3><p>Check your current account balance.</p><a href="balance.html">Check Balance</a></div>
+<div class="card"><div style="font-size:27px">💰</div><h3>Deposit</h3><p>Add money to your bank account.</p><a href="deposit.html">Deposit</a></div>
+<div class="card"><div style="font-size:27px">💸</div><h3>Withdraw</h3><p>Withdraw money from your account.</p><a href="withdraw.html">Withdraw</a></div>
+<div class="card"><div style="font-size:27px">🔄</div><h3>Transfer</h3><p>Transfer money to another bank account.</p><a href="transfer.html">Transfer</a></div>
+<div class="card"><div style="font-size:27px">📜</div><h3>Transactions</h3><p>View your transaction history.</p><a href="history.html">View History</a></div>
+</div></main>
+<script>
+if(sessionStorage.getItem('loggedIn')!=='customer')location.href='login.html';else welcome.textContent='Welcome, '+sessionStorage.getItem('customerName')+'!';
+function logout(){sessionStorage.clear();location.href='login.html'}
+</script></body></html>

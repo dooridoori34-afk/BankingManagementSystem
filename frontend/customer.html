@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Register</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><section class="form-card"><h2>Create Customer</h2><p class="sub">Register for SecureBank</p>
+<label>Full Name</label><input id="name" placeholder="Enter your name">
+<label>Phone</label><input id="phone" placeholder="Enter phone number">
+<label>Email</label><input id="email" type="email" placeholder="Enter email">
+<label>Password</label><input id="password" type="password" placeholder="Create password">
+<button class="btn" onclick="createCustomer()">Create Customer</button><p id="message" class="message"></p>
+<a class="back" href="index.html">← Back to Home</a></section></main>
+<script>
+async function createCustomer(){if(!name.value.trim()||!phone.value.trim()||!email.value.trim()||!password.value){message.textContent='Please fill all fields!';return}
+try{const r=await fetch('http://localhost:8080/api/customer',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'name='+encodeURIComponent(name.value)+'&phone='+encodeURIComponent(phone.value)+'&email='+encodeURIComponent(email.value)+'&password='+encodeURIComponent(password.value)});message.textContent=await r.text()}catch(e){message.textContent='Cannot connect to Java server!'}}
+</script></body></html>

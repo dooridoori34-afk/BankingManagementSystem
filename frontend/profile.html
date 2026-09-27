@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Profile</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><div class="topline"><div><h2>👤 My Profile</h2><p style="color:var(--muted)">Personal information and accounts</p></div><a class="btn" href="customer-dashboard.html">Dashboard</a></div>
+<div id="content"><p>Loading...</p></div></main>
+<script>
+if(sessionStorage.getItem('loggedIn')!=='customer')location.href='login.html';
+async function loadProfile(){
+ try{const id=sessionStorage.getItem('customerId');const r=await fetch('http://localhost:8080/api/profile?customerId='+encodeURIComponent(id));const t=await r.text();if(!r.ok){content.innerHTML='<p>'+t+'</p>';return}
+ const d=JSON.parse(t);let accounts=d.accounts||[];
+ let a=accounts.length?accounts.map(x=>'<div class="account-box"><div class="account-top"><div><small style="color:var(--muted)">Account Number</small><h3>'+x.accountNumber+'</h3></div><span class="badge">'+x.accountType+'</span></div><div class="balance">₹ '+Number(x.balance).toFixed(2)+'</div></div>').join(''):'<div class="account-box"><p>No bank account yet.</p><a class="btn" href="account.html">Open Account</a></div>';
+ content.innerHTML='<div class="profile"><div class="profile-box"><div class="avatar">'+d.name.charAt(0).toUpperCase()+'</div><h2>'+d.name+'</h2><p style="color:var(--muted)">Customer ID: '+d.customerId+'</p><div class="info"><div><small>Email</small><strong>'+d.email+'</strong></div><div><small>Phone</small><strong>'+d.phone+'</strong></div></div></div><div><h3 style="margin-bottom:12px">🏦 My Accounts</h3>'+a+'</div></div>';
+ }catch(e){content.innerHTML='<p>Cannot connect to Java server!</p>'}
+}loadProfile();
+</script></body></html>

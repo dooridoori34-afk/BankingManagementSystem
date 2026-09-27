@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Withdraw</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+<main><section class="form-card"><h2>💸 Withdraw Money</h2><p class="sub">SecureBank service</p><label>Account Number</label><input id="accountNumber" type="number" placeholder="Enter account number" >
+<label>Amount (₹)</label><input id="amount" type="number" placeholder="Enter amount" min="0"><button class="btn" onclick="submitForm()">Continue</button><p id="message" class="message"></p><a class="back" href="customer-dashboard.html">← Dashboard</a></section></main>
+<script>
+if(sessionStorage.getItem('loggedIn')!=='customer')location.href='login.html';
+async function submitForm(){try{const r=await fetch('http://localhost:8080/api/withdraw',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'accountNumber='+encodeURIComponent(accountNumber.value)+'&amount='+encodeURIComponent(amount.value)});message.textContent=await r.text()}catch(e){message.textContent='Cannot connect to Java server!'}}
+</script></body></html>

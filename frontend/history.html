@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Transaction History</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><section class="form-card" style="max-width:850px"><h2>📜 Transaction History</h2><p class="sub">View your account transactions</p>
+<label>Account Number</label><input id="accountNumber" type="number" placeholder="Enter account number"><button class="btn" onclick="loadHistory()">View History</button><div id="history" class="table-wrap"></div><a class="back" href="customer-dashboard.html">← Dashboard</a></section></main>
+<script>
+if(sessionStorage.getItem('loggedIn')!=='customer')location.href='login.html';
+async function loadHistory(){try{const r=await fetch('http://localhost:8080/api/history',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'accountNumber='+encodeURIComponent(accountNumber.value)});const t=await r.text();if(t==='NO_TRANSACTIONS'){history.innerHTML='<p>No transactions found.</p>';return}if(!r.ok){history.innerHTML='<p>'+t+'</p>';return}let h='<table><tr><th>ID</th><th>Type</th><th>Amount</th><th>Date</th></tr>';t.trim().split('\n').forEach(x=>{let p=x.split('|');h+='<tr><td>'+p[0]+'</td><td>'+p[1]+'</td><td>₹ '+p[2]+'</td><td>'+p[3]+'</td></tr>'});history.innerHTML=h+'</table>'}catch(e){history.innerHTML='<p>Cannot connect to Java server!</p>'}}
+</script></body></html>

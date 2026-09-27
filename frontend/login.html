@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Login</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><section class="form-card"><h2>Welcome Back</h2><p class="sub">Sign in to your SecureBank account</p>
+<label>Email</label><input id="username" type="email" placeholder="Enter your email">
+<label>Password</label><input id="password" type="password" placeholder="Enter your password">
+<label>Login Type</label><select id="loginType"><option value="">Select</option><option value="customer">Customer</option><option value="admin">Admin / Staff</option></select>
+<button class="btn" onclick="login()">Sign In</button><p id="message" class="message"></p><a class="back" href="index.html">← Back to Home</a></section></main>
+<script>
+async function login(){
+ const email=username.value.trim(), password=document.getElementById('password').value, type=loginType.value;
+ if(!email||!password||!type){message.textContent='Please fill all fields!';return}
+ if(type==='admin'){if(email.toLowerCase()==='admin@gmail.com'&&password==='admin123'){sessionStorage.setItem('loggedIn','admin');location.href='admin.html'}else message.textContent='Invalid admin email or password!';return}
+ try{const r=await fetch('http://localhost:8080/api/login',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'email='+encodeURIComponent(email)+'&password='+encodeURIComponent(password)});
+ const t=await r.text(); if(r.ok&&t.startsWith('SUCCESS|')){const p=t.split('|');sessionStorage.setItem('loggedIn','customer');sessionStorage.setItem('customerId',p[1]);sessionStorage.setItem('customerName',p[2]);location.href='customer-dashboard.html'}else message.textContent=t}catch(e){message.textContent='Cannot connect to Java server!'}
+}
+</script></body></html>

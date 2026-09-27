@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Open Account</title><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🏦 SecureBank</h1><p>Banking Management System</p></div></header>
+
+<main><section class="form-card"><h2>🏦 Open New Account</h2><p class="sub" id="info"></p>
+<label>Account Type</label><select id="accountType"><option value="">Select Account Type</option><option>Savings</option><option>Current</option></select>
+<label>Initial Deposit (₹)</label><input id="initialDeposit" type="number" min="0" placeholder="Enter initial deposit">
+<button class="btn" onclick="createAccount()">Create Account</button><p id="message" class="message"></p><a class="back" href="customer-dashboard.html">← Dashboard</a></section></main>
+<script>
+if(sessionStorage.getItem('loggedIn')!=='customer')location.href='login.html';info.textContent='Customer: '+sessionStorage.getItem('customerName');
+async function createAccount(){if(!accountType.value||initialDeposit.value===''){message.textContent='Please fill all fields!';return}try{const r=await fetch('http://localhost:8080/api/account',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'customerId='+encodeURIComponent(sessionStorage.getItem('customerId'))+'&accountType='+encodeURIComponent(accountType.value)+'&initialDeposit='+encodeURIComponent(initialDeposit.value)});message.textContent=await r.text()}catch(e){message.textContent='Cannot connect to Java server!'}}
+</script></body></html>
