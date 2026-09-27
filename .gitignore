@@ -1,5 +1,4 @@
 *.class
 .vscode/
-src/com/bank/util/DBConnection.java
 frontend_old/
 lib/mysql-connector-j-26.7.0/src/
